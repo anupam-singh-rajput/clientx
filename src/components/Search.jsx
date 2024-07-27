@@ -13,7 +13,7 @@ const Search = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+    const token = Cookies.get('token');
     // Check if username input is empty
     if (!name.trim()) {
       alert('Please enter a username');
@@ -25,8 +25,10 @@ const Search = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify({ name }),
+          credentials: 'include',
         });
       
       if (!response.ok) {
